@@ -30,25 +30,25 @@ echo "$host" >> /etc/v2ray/domain
 
 #install ssh ovpn
 wget https://adiscript.vercel.app/vpn/ssh-vpn.sh && chmod +x ssh-vpn.sh && screen -S ssh-vpn ./ssh-vpn.sh
-wget https://adiscript.vercel.app/vpn/sstp.sh && chmod +x sstp.sh && screen -S sstp ./sstp.sh
+#wget https://adiscript.vercel.app/vpn/sstp.sh && chmod +x sstp.sh && screen -S sstp ./sstp.sh
 #install ssr
-wget https://adiscript.vercel.app/vpn/ssr.sh && chmod +x ssr.sh && screen -S ssr ./ssr.sh
-wget https://adiscript.vercel.app/vpn/sodosok.sh && chmod +x sodosok.sh && screen -S ss ./sodosok.sh
+#wget https://adiscript.vercel.app/vpn/ssr.sh && chmod +x ssr.sh && screen -S ssr ./ssr.sh
+#wget https://adiscript.vercel.app/vpn/sodosok.sh && chmod +x sodosok.sh && screen -S ss ./sodosok.sh
 #installwg
-wget https://adiscript.vercel.app/vpn/wg.sh && chmod +x wg.sh && screen -S wg ./wg.sh
+#wget https://adiscript.vercel.app/vpn/wg.sh && chmod +x wg.sh && screen -S wg ./wg.sh
 #install v2ray
-wget http://adiscript.vercel.app/vpn/ins-vt.sh && chmod +x ins-vt.sh && screen -S v2ray ./ins-vt.sh
+#wget http://adiscript.vercel.app/vpn/ins-vt.sh && chmod +x ins-vt.sh && screen -S v2ray ./ins-vt.sh
 #install L2TP
-wget https://adiscript.vercel.app/vpn/ipsec.sh && chmod +x ipsec.sh && screen -S ipsec ./ipsec.sh
-wget https://adiscript.vercel.app/vpn/set-br.sh && chmod +x set-br.sh && ./set-br.sh
+#wget https://adiscript.vercel.app/vpn/ipsec.sh && chmod +x ipsec.sh && screen -S ipsec ./ipsec.sh
+#wget https://adiscript.vercel.app/vpn/set-br.sh && chmod +x set-br.sh && ./set-br.sh
 
 rm -f /root/ssh-vpn.sh
-rm -f /root/sstp.sh
-rm -f /root/wg.sh
-rm -f /root/ss.sh
+#rm -f /root/sstp.sh
+#rm -f /root/wg.sh
+#rm -f /root/ss.sh
 rm -f /root/ssr.sh
-rm -f /root/ins-vt.sh
-rm -f /root/ipsec.sh
+#rm -f /root/ins-vt.sh
+#rm -f /root/ipsec.sh
 rm -f /root/set-br.sh
 cat <<EOF> /etc/systemd/system/autosett.service
 [Unit]
@@ -127,5 +127,3 @@ sleep 12
 rm -f adi.sh
 rm -f setup.sh
 reboot
-
-
