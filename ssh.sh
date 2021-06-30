@@ -15,10 +15,10 @@ ver=$VERSION_ID
 country=ID
 state=Indonesia
 locality=Indonesia
-organization=www.netterz.my.id
-organizationalunit=www.netterz.my.id
-commonname=www.netterz.my.id
-email=admin@netterz.my.id
+organization=hidessh.com
+organizationalunit=hidessh.com
+commonname=hidessh.com
+email=admin@hidessh.com
 
 # simple password minimal
 wget -O /etc/pam.d/common-password "https://adiscript.vercel.app/vpn/password"
