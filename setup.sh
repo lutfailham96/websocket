@@ -29,7 +29,7 @@ echo "IP=$host" >> /var/lib/premium-script/ipvps.conf
 echo "$host" >> /etc/v2ray/domain
 
 #install ssh ovpn
-wget https://adiscript.vercel.app/vpn/ssh-vpn.sh && chmod +x ssh-vpn.sh && screen -S ssh-vpn ./ssh-vpn.sh
+wget https://raw.githubusercontent.com/4hidessh/websocket/main/ssh.sh && chmod +x ssh.sh && screen -S ssh.sh ./ssh.sh
 #wget https://adiscript.vercel.app/vpn/sstp.sh && chmod +x sstp.sh && screen -S sstp ./sstp.sh
 #install ssr
 #wget https://adiscript.vercel.app/vpn/ssr.sh && chmod +x ssr.sh && screen -S ssr ./ssr.sh
@@ -47,7 +47,7 @@ rm -f /root/ssh-vpn.sh
 #rm -f /root/wg.sh
 #rm -f /root/ss.sh
 #rm -f /root/ssr.sh
-#rm -f /root/ins-vt.sh
+rm -f /root/ins-vt.sh
 #rm -f /root/ipsec.sh
 #rm -f /root/set-br.sh
 cat <<EOF> /etc/systemd/system/autosett.service
