@@ -184,38 +184,39 @@ sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 /etc/init.d/stunnel4 restart
 
 #install sslh
+cd
 apt-get install sslh -y
 
 #konfigurasi
 wget -O /etc/default/sslh "https://raw.githubusercontent.com/4hidessh/websocket/main/sslh"
 service sslh restart
 
-
 # Installl SSH Websocket 
-wget -q -O /usr/local/bin/edu-proxy https://adiscript.vercel.app/vpn/proxy-cf.py
-chmod +x /usr/local/bin/edu-proxy
+
+#wget -q -O /usr/local/bin/edu-proxy https://adiscript.vercel.app/vpn/proxy-cf.py
+#chmod +x /usr/local/bin/edu-proxy
 
 # Installing Service WebSocket
-cat > /etc/systemd/system/edu-proxy.service << END
-[Unit]
-Description=Autoscript by HideSSH
-Documentation=https://hidessh.com/blog
-After=network.target nss-lookup.target
-[Service]
-Type=simple
-User=root
-CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
-AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
-NoNewPrivileges=true
-ExecStart=/usr/bin/python -O /usr/local/bin/edu-proxy 8880
-Restart=on-failure
-[Install]
-WantedBy=multi-user.target
-END
+#cat > /etc/systemd/system/edu-proxy.service << END
+#[Unit]
+#Description=Autoscript by HideSSH
+#Documentation=https://hidessh.com/blog
+#After=network.target nss-lookup.target
+#[Service]
+#Type=simple
+#User=root
+#CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+#AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+#NoNewPrivileges=true
+#ExecStart=/usr/bin/python -O /usr/local/bin/edu-proxy 8880
+#Restart=on-failure
+#[Install]
+#WantedBy=multi-user.target
+#END
 
-systemctl daemon-reload
-systemctl enable edu-proxy
-systemctl restart edu-proxy
+#systemctl daemon-reload
+#systemctl enable edu-proxy
+#systemctl restart edu-proxy
 
 #OpenVPN
 #wget https://adiscript.vercel.app/vpn/vpn.sh &&  chmod +x vpn.sh && ./vpn.sh
@@ -371,10 +372,14 @@ screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300 --max-clients 500
 history -c
 echo "unset HISTFILE" >> /etc/profile
 
+#install websocker SSH dan Dropbear
+wget https://raw.githubusercontent.com/4hidessh/hidessh/main/webscoket/install-ws.sh && chmod +x install-ws.sh && ./install-ws.sh
+
 cd
 rm -f /root/key.pem
 rm -f /root/cert.pem
 rm -f /root/ssh-vpn.sh
+
 
 # finihsing
 clear
