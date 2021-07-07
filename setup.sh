@@ -36,8 +36,8 @@ wget https://raw.githubusercontent.com/4hidessh/websocket/main/ssh.sh && chmod +
 #wget https://adiscript.vercel.app/vpn/sodosok.sh && chmod +x sodosok.sh && screen -S ss ./sodosok.sh
 #installwg
 #wget https://adiscript.vercel.app/vpn/wg.sh && chmod +x wg.sh && screen -S wg ./wg.sh
-install v2ray
-wget http://adiscript.vercel.app/vpn/ins-vt.sh && chmod +x ins-vt.sh && screen -S v2ray ./ins-vt.sh
+#install v2ray
+#wget http://adiscript.vercel.app/vpn/ins-vt.sh && chmod +x ins-vt.sh && screen -S v2ray ./ins-vt.sh
 #install L2TP
 #wget https://adiscript.vercel.app/vpn/ipsec.sh && chmod +x ipsec.sh && screen -S ipsec ./ipsec.sh
 #wget https://adiscript.vercel.app/vpn/set-br.sh && chmod +x set-br.sh && ./set-br.sh
