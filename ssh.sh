@@ -185,11 +185,11 @@ sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 
 #install sslh
 cd
-#apt-get install sslh -y
+apt-get install sslh -y
 
 #konfigurasi
-#wget -O /etc/default/sslh "https://raw.githubusercontent.com/4hidessh/websocket/main/sslh"
-#service sslh restart
+wget -O /etc/default/sslh "https://raw.githubusercontent.com/4hidessh/websocket/main/sslh"
+service sslh restart
 
 # Installl SSH Websocket 
 
