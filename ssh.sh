@@ -114,12 +114,16 @@ screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7400 --max-clients 500
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7500 --max-clients 500
 
 # setting port ssh
-sed -i 's/Port 22/Port 22/g' /etc/ssh/sshd_config
+cd
+sed -i 's/#Port 22/Port 22/g' /etc/ssh/sshd_config
+sed -i '/Port 22/a Port 88' /etc/ssh/sshd_config
+sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
+/etc/init.d/ssh restart
 
 # install dropbear
 apt -y install dropbear
 sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=143/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=44/g' /etc/default/dropbear
 sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 109"/g' /etc/default/dropbear
 echo "/bin/false" >> /etc/shells
 echo "/usr/sbin/nologin" >> /etc/shells
@@ -159,11 +163,11 @@ socket = r:TCP_NODELAY=1
 
 [dropbear]
 accept = 443
-connect = 127.0.0.1:109
+connect = 127.0.0.1:44
 
 [dropbear]
-accept = 777
-connect = 127.0.0.1:22
+accept = 222
+connect = 127.0.0.1:222
 
 [openvpn]
 accept = 442
@@ -188,8 +192,8 @@ chmod +x /usr/local/bin/edu-proxy
 # Installing Service WebSocket
 cat > /etc/systemd/system/edu-proxy.service << END
 [Unit]
-Description=Autoscript by NETZSSH
-Documentation=https://netterz.my.id
+Description=Autoscript by HideSSH
+Documentation=https://hidessh.com/blog
 After=network.target nss-lookup.target
 [Service]
 Type=simple
@@ -208,7 +212,7 @@ systemctl enable edu-proxy
 systemctl restart edu-proxy
 
 #OpenVPN
-wget https://adiscript.vercel.app/vpn/vpn.sh &&  chmod +x vpn.sh && ./vpn.sh
+#wget https://adiscript.vercel.app/vpn/vpn.sh &&  chmod +x vpn.sh && ./vpn.sh
 
 # install fail2ban
 apt -y install fail2ban
@@ -240,12 +244,16 @@ echo; echo 'Installation has completed.'
 echo 'Config file is at /usr/local/ddos/ddos.conf'
 echo 'Please send in your comments and/or suggestions to zaf@vsnl.com'
 
-# banner /etc/issue.net
-wget -O /etc/issue.net "https://adiscript.vercel.app/vpn/bannerssh.conf"
-echo "Banner /etc/issue.net" >>/etc/ssh/sshd_config
-sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
+# Custom Banner SSH
+echo "================  Banner ======================"
+wget -O /etc/issue.net "https://github.com/idtunnel/sshtunnel/raw/master/debian9/banner-custom.conf"
+chmod +x /etc/issue.net
+
+echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config
+echo "DROPBEAR_BANNER="/etc/issue.net"" >> /etc/default/dropbear
 
 # blockir torrent
+apt install iptables-persistent -y
 iptables -A FORWARD -m string --string "get_peers" --algo bm -j DROP
 iptables -A FORWARD -m string --string "announce_peer" --algo bm -j DROP
 iptables -A FORWARD -m string --string "find_node" --algo bm -j DROP
