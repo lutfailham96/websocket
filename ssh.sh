@@ -1,6 +1,6 @@
 #!/bin/bash
-# By Horasss
-#
+# By HideSSH
+# Tunneling SSH Websocket + Stunnel + SSLH
 # ==================================================
 
 # initializing var
@@ -82,12 +82,9 @@ sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 apt-get --reinstall --fix-missing install -y bzip2 gzip coreutils wget screen rsyslog iftop htop net-tools zip unzip wget net-tools curl nano sed screen gnupg gnupg1 bc apt-transport-https build-essential dirmngr libxml-parser-perl neofetch git lsof
 echo "clear" >> .profile
 echo "neofetch" >> .profile
-echo "echo Selamat Datang Master !" >> .profile
+echo "echo Selamat Datang HideSSH !" >> .profile
 echo "echo Ketik menu untuk melihat list" >> .profile
-echo "echo VPSmu Terinstall AutoScript by Adi Subagja" >> .profile
-echo "echo Kontak : http://t.me/adisubagja" >> .profile
-echo "echo Source : https://github.com/adisubagja/AutoScriptSSH" >> .profile
-echo "echo Script ini gratis dilarang diperjualbelikan !" >> .profile
+echo "echo VPSmu Terinstall AutoScript by HideSSh" >> .profile
 echo "echo Terimakasih !" >> .profile
 
 # install webserver
@@ -132,23 +129,6 @@ cd
 apt -y install squid3
 wget -O /etc/squid/squid.conf "https://adiscript.vercel.app/vpn/squid3.conf"
 sed -i $MYIP2 /etc/squid/squid.conf
-
-# setting vnstat
-apt -y install vnstat
-/etc/init.d/vnstat restart
-apt -y install libsqlite3-dev
-wget https://humdi.net/vnstat/vnstat-2.6.tar.gz
-tar zxvf vnstat-2.6.tar.gz
-cd vnstat-2.6
-./configure --prefix=/usr --sysconfdir=/etc && make && make install
-cd
-vnstat -u -i $NET
-sed -i 's/Interface "'""eth0""'"/Interface "'""$NET""'"/g' /etc/vnstat.conf
-chown vnstat:vnstat /var/lib/vnstat -R
-systemctl enable vnstat
-/etc/init.d/vnstat restart
-rm -f /root/vnstat-2.6.tar.gz
-rm -rf /root/vnstat-2.6
 
 # install stunnel
 apt install stunnel4 -y
@@ -225,31 +205,10 @@ service sslh restart
 apt -y install fail2ban
 
 # Instal DDOS Flate
-if [ -d '/usr/local/ddos' ]; then
-	echo; echo; echo "Please un-install the previous version first"
-	exit 0
-else
-	mkdir /usr/local/ddos
-fi
-clear
-echo; echo 'Installing DOS-Deflate 0.6'; echo
-echo; echo -n 'Downloading source files...'
-wget -q -O /usr/local/ddos/ddos.conf http://www.inetbase.com/scripts/ddos/ddos.conf
-echo -n '.'
-wget -q -O /usr/local/ddos/LICENSE http://www.inetbase.com/scripts/ddos/LICENSE
-echo -n '.'
-wget -q -O /usr/local/ddos/ignore.ip.list http://www.inetbase.com/scripts/ddos/ignore.ip.list
-echo -n '.'
-wget -q -O /usr/local/ddos/ddos.sh http://www.inetbase.com/scripts/ddos/ddos.sh
-chmod 0755 /usr/local/ddos/ddos.sh
-cp -s /usr/local/ddos/ddos.sh /usr/local/sbin/ddos
-echo '...done'
-echo; echo -n 'Creating cron to run script every minute.....(Default setting)'
-/usr/local/ddos/ddos.sh --cron > /dev/null 2>&1
-echo '.....done'
-echo; echo 'Installation has completed.'
-echo 'Config file is at /usr/local/ddos/ddos.conf'
-echo 'Please send in your comments and/or suggestions to zaf@vsnl.com'
+wget https://github.com/jgmdev/ddos-deflate/archive/master.zip -O ddos.zip
+unzip ddos.zip
+cd ddos-deflate-master
+./install.sh
 
 # Custom Banner SSH
 echo "================  Banner ======================"
@@ -261,17 +220,7 @@ echo "DROPBEAR_BANNER="/etc/issue.net"" >> /etc/default/dropbear
 
 # blockir torrent
 apt install iptables-persistent -y
-iptables -A FORWARD -m string --string "get_peers" --algo bm -j DROP
-iptables -A FORWARD -m string --string "announce_peer" --algo bm -j DROP
-iptables -A FORWARD -m string --string "find_node" --algo bm -j DROP
-iptables -A FORWARD -m string --algo bm --string "BitTorrent" -j DROP
-iptables -A FORWARD -m string --algo bm --string "BitTorrent protocol" -j DROP
-iptables -A FORWARD -m string --algo bm --string "peer_id=" -j DROP
-iptables -A FORWARD -m string --algo bm --string ".torrent" -j DROP
-iptables -A FORWARD -m string --algo bm --string "announce.php?passkey=" -j DROP
-iptables -A FORWARD -m string --algo bm --string "torrent" -j DROP
-iptables -A FORWARD -m string --algo bm --string "announce" -j DROP
-iptables -A FORWARD -m string --algo bm --string "info_hash" -j DROP
+wget https://raw.githubusercontent.com/4hidessh/hidessh/main/security/torrent && chmod +x torrent && ./torrent
 iptables-save > /etc/iptables.up.rules
 iptables-restore -t < /etc/iptables.up.rules
 netfilter-persistent save
@@ -343,8 +292,18 @@ chmod +x wbmn
 chmod +x xp
 chmod +x kernel-updt
 chmod +x ganti-host
+
+#install websocker SSH dan Dropbear
+wget https://raw.githubusercontent.com/4hidessh/hidessh/main/webscoket/install-ws.sh && chmod +x install-ws.sh && ./install-ws.sh
+
+# Delete Acount SSH Expired
+echo "================  Auto deleted Account Expired ======================"
+wget -O /usr/local/bin/userdelexpired "https://raw.githubusercontent.com/4hidessh/sshtunnel/master/userdelexpired" && chmod +x /usr/local/bin/userdelexpired
+
+#auto reboot server
 echo "0 5 * * * root clear-log && reboot" >> /etc/crontab
 echo "0 0 * * * root xp" >> /etc/crontab
+
 # remove unnecessary files
 cd
 apt autoclean -y
@@ -370,17 +329,12 @@ screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7100 --max-clients 500
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7200 --max-clients 500
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300 --max-clients 500
 
-
 history -c
-echo "unset HISTFILE" >> /etc/profile
+echo "unset HideSSH" >> /etc/profile
 
-#install websocker SSH dan Dropbear
-wget https://raw.githubusercontent.com/4hidessh/hidessh/main/webscoket/install-ws.sh && chmod +x install-ws.sh && ./install-ws.sh
-
+#hapus file
 cd
-rm -f /root/key.pem
-rm -f /root/cert.pem
-rm -f /root/ssh-vpn.sh
+rm -f /root/ssh.sh
 
 
 # finihsing
