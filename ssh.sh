@@ -330,7 +330,7 @@ echo "unset HideSSH" >> /etc/profile
 cd
 rm -f /root/ssh.sh
 
-apt install dnsutils -y
+apt install dnsutils jq -y
 apt-get install net-tools -y
 apt-get install tcpdump -y
 apt-get install dsniff -y
