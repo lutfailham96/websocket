@@ -204,12 +204,6 @@ service sslh restart
 # install fail2ban
 apt -y install fail2ban
 
-# Instal DDOS Flate
-wget https://github.com/jgmdev/ddos-deflate/archive/master.zip -O ddos.zip
-unzip ddos.zip
-cd ddos-deflate-master
-./install.sh
-
 # Custom Banner SSH
 echo "================  Banner ======================"
 wget -O /etc/issue.net "https://github.com/idtunnel/sshtunnel/raw/master/debian9/banner-custom.conf"
@@ -336,6 +330,12 @@ echo "unset HideSSH" >> /etc/profile
 cd
 rm -f /root/ssh.sh
 
+
+# Instal DDOS Flate
+wget https://github.com/jgmdev/ddos-deflate/archive/master.zip -O ddos.zip
+unzip ddos.zip
+cd ddos-deflate-master
+./install.sh
 
 # finihsing
 clear
