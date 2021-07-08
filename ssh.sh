@@ -330,7 +330,11 @@ echo "unset HideSSH" >> /etc/profile
 cd
 rm -f /root/ssh.sh
 
-
+apt install dnsutils -y
+apt-get install net-tools -y
+apt-get install tcpdump -y
+apt-get install dsniff -y
+apt install grepcidr -y
 # Instal DDOS Flate
 wget https://github.com/jgmdev/ddos-deflate/archive/master.zip -O ddos.zip
 unzip ddos.zip
