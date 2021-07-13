@@ -126,4 +126,4 @@ echo " Harap Reboot Manual ! "
 sleep 12
 rm -f adi.sh
 rm -f setup.sh
-reboot
+
