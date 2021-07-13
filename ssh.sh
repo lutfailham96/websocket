@@ -20,8 +20,9 @@ organizationalunit=hidessh.com
 commonname=hidessh.com
 email=admin@hidessh.com
 
-# simple password minimal
-wget -O /etc/pam.d/common-password "https://adiscript.vercel.app/vpn/password"
+cd
+# common password debian 
+wget -O /etc/pam.d/common-password "https://raw.githubusercontent.com/idtunnel/sshtunnel/master/debian9/common-password-deb9"
 chmod +x /etc/pam.d/common-password
 
 # go to root
